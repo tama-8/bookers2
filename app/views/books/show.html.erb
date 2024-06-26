@@ -1,0 +1,29 @@
+ <p id ='notice'></p>
+   <div class ='container px-5 px-sm-0 mx-5'>
+     <div class='row'>
+
+      <%= render 'users/user',user:@user,book:@new_book %>
+
+        <div class = 'col-md-8 offset-md-1'>
+        <!--User_idの投稿一覧-->
+        <h2>Book detail</h2>
+        <table class = 'table table-hover table-inverse book-table'>
+          <tbody>
+
+            <tr>
+              <td><%= image_tag @user.get_profile_image(50,50) %><br>
+                 <%= link_to @user.name,user_path(@user.id) %>
+              </td>
+
+              <td><%= link_to @book.title,book_path(@book.id) %></td>
+              <td><%= @book.body %></td>
+              <% if @book.user_id == current_user.id %>
+              <td><%= link_to "Edit",edit_book_path(@book.id),class:"btn bth-sm bg-success text-white"%></td>
+              <td><%= link_to "Destroy", destroy_book_path(@book.id),class:"btn bth-sm bg-danger text-white", method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+               <% end %>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      </div>
