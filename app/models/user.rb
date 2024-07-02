@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :book_comments,dependent: :destroy
 
   validates :name, presence: true, length:{ minimum: 2 ,maximum: 20 }, uniqueness: true
   validates :introduction, length:{ maximum: 50 }
@@ -21,6 +22,7 @@ class User < ApplicationRecord
   end
 
   def already_favorited?(book)
+    puts book.inspect
     self.favorites.exists?(book_id: book.id)
 
   end

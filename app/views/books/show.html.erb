@@ -21,9 +21,49 @@
               <td><%= link_to "Edit",edit_book_path(@book.id),class:"btn bth-sm bg-success text-white"%></td>
               <td><%= link_to "Destroy", destroy_book_path(@book.id),class:"btn bth-sm bg-danger text-white", method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
                <% end %>
-            </tr>
-
+               <td>
+                  <% if current_user.already_favorited?(@book) %>
+                     <%= link_to book_favorites_path(@book),method: :delete do %>
+                        <i class="fas fa-heart"></i>
+                     <% end %>
+                  <% else %>
+                    <%= link_to book_favorites_path(@book),method: :post do %>
+                    <i class="far fa-heart"></i>
+                     <% end %>
+                <% end %>
+                <%= @book.favorites.count %>
+              <%# end %>
+                </td>
+                <td>コメント数：<%= @book.book_comments.count %></td>
+              </tr>
+            </tbody>
+          </table>
+        <table>
+          <tbody>
+              <% @book.book_comments.each do |book_comment| %>
+            <tr>
+              <td><%= image_tag current_user.get_profile_image(50,50) %><br>
+                 <%= link_to current_user.name,user_path(current_user.id) %>
+              </td>
+               <td>
+                 <%= book_comment.content %>
+               </td>
+               <% if book_comment.user_id == current_user.id %>
+              <td><%= link_to "Destroy", destroy_book_path(@book.id),class:"btn bth-sm bg-danger text-white", method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+               <% end %>
+              </tr>
+               <% end %>
           </tbody>
-        </table>
+          </table>
+         <%= form_with model: [@book, @book_comment], local:true do |f| %>
+            <div>
+              <%= f.label :content %>
+              <%=  f.text_area :content, class: 'form-control' %>
+            </div>
+            <%# if @book.user_id == current_user.id %>
+             <%= f.submit '送信', class: 'btn btn-black btn-block' %>
+            <% #end %>
+          <% end %>
       </div>
-      </div>
+    </div>
+  </div>
