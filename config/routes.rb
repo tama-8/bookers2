@@ -11,11 +11,16 @@ Rails.application.routes.draw do
 
       # get 'homes/about', to: 'homes#about', as: 'about'
        get '/users/:id/edit', to: 'users#edit', as: 'edit_user'
-       resources :books, only: [:index, :show, :create, :edit, :update, :destroy]
+       #resources :books, only: [:index, :show, :create, :edit, :update, :destroy]
+       resources :books do
+        resource :favorites, only: [:create, :destroy]
+       end
+
        resources :users, only: [:index, :show, :create, :update]do
           patch '/:id', to: 'users#update', as: 'update_user'
        end
       delete 'books/:id' ,to: 'book#show', as: 'destroy_book'
+
 
 end
 
