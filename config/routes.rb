@@ -11,9 +11,15 @@ Rails.application.routes.draw do
       # get 'homes/about', to: 'homes#about', as: 'about'
       get '/users/:id/edit', to: 'users#edit', as: 'edit_user'
 
-       resources :books do
+      get "search" => "searches#search"#検索機能
+
+       resources :books  do
         resource :favorites, only: [:create, :destroy]
         resources :book_comments, only: [:create, :destroy]
+        member do
+          get :edit, to: 'books#edit' # booksコントローラのeditアクションへのルートを追加
+          delete :destroy, to: 'books#destroy' # booksコントローラのdestroyアクションへのルートを追加
+  end
        end
 
        resources :users, only: [:index, :show, :create, :update]do

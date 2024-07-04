@@ -1,8 +1,13 @@
+
   <p id ='notice'></p>
    <div class ='container px-5 px-sm-0 mx-5'>
      <div class='row'>
+       <!--検索機能-->
+       <div><%= render 'searches/search' %></div>
+       <!--User詳細、book投稿-->
        <%= render 'user', user:@user,book:@book%>
        <div class = 'col-md-8 offset-md-1'>
+
         <!--booksの投稿一覧-->
          <h2>Books</h2>
           <table class = 'table table-hover table-inverse'>
