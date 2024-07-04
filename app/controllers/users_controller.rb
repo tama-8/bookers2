@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     @books = @user.books
     @book = Book.new
     @users=User.all
+    # @relationship = current_user.relationships.find(params[:id])
   end
 
   def update
@@ -41,19 +42,6 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-
-  # def create
-  #   # １. データを受け取り新規登録するためのインスタンス作成
-  #   @user = User.new(_params)
-  #   # 2. データをデータベースに保存するためのsaveメソッド実行
-  #   if @user.save
-  #     # 3. フラッシュメッセージを定義し、詳細画面へリダイレクト
-  #     redirect_to user_path(@user.id)
-  #     flash[:notice] = "投稿に成功しました。"
-  #   else
-  #     render :root_pash
-  #   end
-  # end
 
    private
 

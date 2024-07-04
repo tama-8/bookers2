@@ -7,6 +7,16 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :book_comments,dependent: :destroy
+  # フォロー
+  has_many :active_relationships,class_name:"Relationship",
+                                 foreign_key: "follower_id",
+                                 dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+   # フォロワー
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
 
   validates :name, presence: true, length:{ minimum: 2 ,maximum: 20 }, uniqueness: true
   validates :introduction, length:{ maximum: 50 }
@@ -24,10 +34,21 @@ class User < ApplicationRecord
   def already_favorited?(book)
     puts book.inspect
     self.favorites.exists?(book_id: book.id)
-
   end
 
+# フォローしているか確認するとき
+  def following?(user)
+    followings.include?(user)
+  end
 
+# フォローするとき
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
 
+  # フォローを外すとき
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
+  end
 
 end
