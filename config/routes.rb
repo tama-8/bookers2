@@ -18,8 +18,11 @@ Rails.application.routes.draw do
         resources :book_comments, only: [:create, :destroy]
         member do
           get :edit, to: 'books#edit' # booksコントローラのeditアクションへのルートを追加
-          delete :destroy, to: 'books#destroy' # booksコントローラのdestroyアクションへのルートを追加
-  end
+          #delete :destroy, to: 'books#destroy' # booksコントローラのdestroyアクションへのルートを追加
+           end
+           collection do
+            delete :destroy, to: 'books#destroy'
+          end
        end
 
        resources :users, only: [:index, :show, :create, :update]do

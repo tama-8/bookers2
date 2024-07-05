@@ -75,6 +75,9 @@
       <%#= render 'searches/search' %>
     <main class="mb-auto">
      <%= flash[:notice] %>
+      <div class="d-flex justify-content-center mb-2">
+          <%= render 'searches/search' %>
+        </div>
      <%= yield %>
     </main>
     <footer>
