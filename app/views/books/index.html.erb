@@ -30,6 +30,8 @@
                 </td>
                 <td><%= link_to book.title,book_path(book.id) %></td>
                 <td><%= book.body%></td>
+                <!--追加0706JavaScriptのコードでは、IDを使って特定の要素にアクセス-->
+                <td id="favorite_btn_<%= book.id %>">
                 <td>
                   <% if current_user.already_favorited?(book) %>
                      <%= link_to book_favorites_path(book),method: :delete,remote: true do %>
@@ -41,9 +43,9 @@
                      <% end %>
                 <% end %>
                 <%= book.favorites.count %>
-
               <% end %>
                 </td>
+                 <td>コメント数：<%= @book.book_comments.count %></td>
               </tr>
               <%# end %>
             </tbody>
