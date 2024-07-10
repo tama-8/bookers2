@@ -5,6 +5,8 @@ class Book < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :comment_users, through: :comments, source: 'user'
   has_many :book_comments, dependent: :destroy
+  #Bookモデルは Favoriteモデルを通じて Userモデルへの間接的な繋がりを持つ
+  has_many :favorited_users, through: :favorites, source: :user
 
   validates :title, presence: true
   validates :body, presence: true, length:{ maximum: 200 }
