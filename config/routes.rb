@@ -29,6 +29,9 @@ Rails.application.routes.draw do
           patch '/:id', to: 'users#update', as: 'update_user'
           resource :relationships, only: [:create, :destroy]
        end
+       
+       resources :messages, only: [:create]
+       resources :rooms, only: [:create, :show]
 end
 
 
